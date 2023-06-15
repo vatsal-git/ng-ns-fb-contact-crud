@@ -1,0 +1,23 @@
+.signin-page{
+    padding: 0 20;
+}
+
+.signin-title{
+}
+
+.signin-form{
+    margin-top: 200;
+}
+
+.validation-error{
+    color: firebrick;
+    margin-left: 18;
+}
+
+.signin-submit-btn{
+    border-radius: 50;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: 600;
+    margin-top: 20;
+}

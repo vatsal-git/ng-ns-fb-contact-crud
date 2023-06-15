@@ -1,0 +1,23 @@
+.signup-page{
+    padding: 0 20;
+}
+
+.signup-title{
+}
+
+.signup-form{
+    margin-top: 200;
+}
+
+.validation-error{
+    color: firebrick;
+    margin-left: 18;
+}
+
+.signup-submit-btn{
+    border-radius: 50;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: 600;
+    margin-top: 20;
+}

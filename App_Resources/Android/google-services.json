@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "321464674212",
+    "firebase_url": "https://fir-nsng-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fir-nsng",
+    "storage_bucket": "fir-nsng.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321464674212:android:1f6ebbec45692a8bb40331",
+        "android_client_info": {
+          "package_name": "org.nativescript.firebaseNsNg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321464674212-n3p124d8id01th0c84c4f92s813cdc1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.nativescript.firebaseNsNg",
+            "certificate_hash": "b81065156c21d2302282613b00e4e5a8e61c0a18"
+          }
+        },
+        {
+          "client_id": "321464674212-edt5ddtnvucc8e9m1lmn0k2jjqif1q51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXtlt4GUvRqQXiRjrTUEMMqA41WV9Nigo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321464674212-edt5ddtnvucc8e9m1lmn0k2jjqif1q51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

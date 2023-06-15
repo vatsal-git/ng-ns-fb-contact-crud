@@ -1,0 +1,23 @@
+<Page loaded="onPageLoaded" class="signup-page">
+    <StackLayout class="signup-form">
+        <TextView editable="false" text="Signup" class="h1 text-center signup-title"></TextView>
+        <Label [text]="signupErrorMessage" *ngIf="signupErrorMessage" class="validation-error"></Label>
+        <ActivityIndicator [busy]="isLoading" color="cornflowerblue"></ActivityIndicator>
+
+        <TextField required hint="Email" [text]="emailInput" (textChange)="onEmailChange($event)"></TextField>
+        <Label [text]="emailValidationMessage" *ngIf="emailValidationMessage" class="validation-error"></Label>
+
+        <TextField required hint="Password" secure="true" [text]="passwordInput" [(ngModel)]="passwordInput"
+            (textChange)="onPasswordChange($event)"></TextField>
+        <Label [text]="passwordValidationMessage" *ngIf="passwordValidationMessage" class="validation-error"></Label>
+
+        <TextField required secure="true" hint="Confirm Password" [(ngModel)]="confirmPasswordInput"
+            (textChange)="onConfirmPasswordChange($event)"></TextField>
+        <Label [text]="confirmPasswordValidationMessage" *ngIf="confirmPasswordValidationMessage"
+            class="validation-error"></Label>
+
+        <Button text="Signup" (tap)="onSignupTap()" class="signup-submit-btn"></Button>
+
+        <TextView editable="false" [nsRouterLink]="['/signin']" class="text-center">Already a user? Signin</TextView>
+    </StackLayout>
+</Page>

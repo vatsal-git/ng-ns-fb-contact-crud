@@ -1,0 +1,31 @@
+<ActionBar title="Create contact">
+    <ActionItem (tap)="onCancel()" text="Cancel">
+    </ActionItem>
+</ActionBar>
+
+<StackLayout class="create-form" padding="20">
+    <TextField required hint="Name" [text]="nameInput" (textChange)="onNameChange($event)"></TextField>
+    <Label [text]="nameValidationMessage" *ngIf="nameValidationMessage" class="validation-error"></Label>
+
+    <TextField required hint="Email" [text]="emailInput" (textChange)="onEmailChange($event)"></TextField>
+    <Label [text]="emailValidationMessage" *ngIf="emailValidationMessage" class="validation-error"></Label>
+
+    <TextField required hint="Phone" [text]="phoneInput" (textChange)="onPhoneChange($event)"></TextField>
+    <Label [text]="phoneValidationMessage" *ngIf="phoneValidationMessage" class="validation-error"></Label>
+
+    <FlexboxLayout marginTop="20">
+        <FlexboxLayout class="upload-remove-btn-container">
+            <Button text="Upload Photo" (tap)="onUploadPhotoTap()" class="-outline upload-btn"></Button>
+            <Button *ngIf="imageSrc" text="Remove" (tap)="onRemovePhotoTap()" class="-outline remove-btn"></Button>
+        </FlexboxLayout>
+        <FlexboxLayout *ngIf="imageSrc" width="50%" class="photo-container">
+            <Image [src]="imageSrc" class="photo"></Image>
+        </FlexboxLayout>
+    </FlexboxLayout>
+    <Label [text]="photoValidationMessage" *ngIf="photoValidationMessage" class="validation-error"></Label>
+
+
+    <Button text="Create" (tap)="onCreateTap()" class="create-btn"></Button>
+    <ActivityIndicator [busy]="isLoading" color="cornflowerblue"></ActivityIndicator>
+    <Label [text]="CreateContactErrorMessage" *ngIf="CreateContactErrorMessage" class="validation-error"></Label>
+</StackLayout>
