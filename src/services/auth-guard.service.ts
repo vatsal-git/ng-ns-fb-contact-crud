@@ -2,13 +2,12 @@ import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
-  NavigationExtras,
   Router,
   RouterStateSnapshot,
 } from "@angular/router";
-import { Store, select } from "@ngrx/store";
-import { Observable, take, tap } from "rxjs";
-import { selectIsAuthenticated } from "~/store/user/user.selectors";
+import { ApplicationSettings } from "@nativescript/core";
+import { Store } from "@ngrx/store";
+import { Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -20,20 +19,14 @@ export class AuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.store.pipe(
-      select(selectIsAuthenticated),
-      take(1),
-      tap((isAuthenticated) => {
-        console.log("Inside authGuardService:", isAuthenticated);
-        if (!isAuthenticated) {
-          const redirectUrl = state.url;
-          const navigationExtras: NavigationExtras = {
-            queryParams: { redirectUrl },
-            skipLocationChange: true, // Add this line
-          };
-          this.router.navigate(["/signin"], navigationExtras);
-        }
-      })
-    );
+    const token = ApplicationSettings.getString("token");
+    console.log({ token });
+
+    if (!token) {
+      this.router.navigate(["/signin"]);
+      return of(false);
+    } else {
+      return of(true);
+    }
   }
 }

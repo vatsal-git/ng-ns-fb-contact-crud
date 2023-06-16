@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 import { ApplicationSettings } from "@nativescript/core";
 import * as firebase from "@nativescript/firebase/app";
 import { Store } from "@ngrx/store";
 import { User } from "nativescript-plugin-firebase";
 import { ContactService } from "~/services/contact.service";
 import { clearUser, setUser } from "~/store/user/user.actions";
-import { selectUser } from "~/store/user/user.selectors";
 
 @Component({
   selector: "ns-home-page",
@@ -17,9 +16,8 @@ import { selectUser } from "~/store/user/user.selectors";
 export class HomePageComponent implements OnInit {
   user: User;
   error: string = "";
-  isLoading: boolean = false;
   contactList = [];
-  contactsFetchLoading: boolean = false;
+  isGetContactsLoading: boolean = false;
   contactsFetchError: string = "";
 
   constructor(
@@ -28,32 +26,31 @@ export class HomePageComponent implements OnInit {
     private contactService: ContactService
   ) {}
 
-  async ngOnInit() {
-    this.store.select(selectUser).subscribe((user) => {
-      this.user = user;
-    });
+  ngOnInit() {
     this.getUserData();
     this.getContacts();
   }
 
   onLogoutTap() {
     this.store.dispatch(clearUser());
-    this.router.navigate(["/signin"]);
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+    };
+    this.router.navigate(["/signin"], navigationExtras);
   }
 
-  async getUserData() {
-    this.isLoading = true;
+  getUserData() {
     const token = ApplicationSettings.getString("token");
+    console.log("Current token:", { token });
 
     if (token) {
-      const currentUser = await firebase.auth().currentUser;
-      console.log("Current user: ", { currentUser });
+      this.user = firebase.auth().currentUser;
 
-      if (currentUser) {
-        this.store.dispatch(setUser({ user: currentUser }));
+      if (this.user) {
+        this.store.dispatch(setUser({ user: this.user }));
       } else {
-        this.error = "User not found" + token;
-        this.store.dispatch(clearUser());
+        // this.error = "User not found" + token;
+        // this.store.dispatch(clearUser());
       }
     }
   }
@@ -62,7 +59,7 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(["/create-contact"]);
   }
 
-  getContacts() {
+  async getContacts() {
     this.contactService
       .getContacts()
       .then((response) => {

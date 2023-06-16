@@ -1,23 +1,39 @@
+<ActionBar title=""></ActionBar>
 <Page loaded="onPageLoaded" class="signup-page">
     <StackLayout class="signup-form">
-        <TextView editable="false" text="Signup" class="h1 text-center signup-title"></TextView>
-        <Label [text]="signupErrorMessage" *ngIf="signupErrorMessage" class="validation-error"></Label>
-        <ActivityIndicator [busy]="isLoading" color="cornflowerblue"></ActivityIndicator>
+        <TextView editable="false" text="Create a new account" class="h1 text-center signup-title"></TextView>
+        <Label [text]="signupErrorMessage" *ngIf="signupErrorMessage" class="text-center validation-error"></Label>
+        <ActivityIndicator [busy]="isLoading" color="#3461FD"></ActivityIndicator>
 
-        <TextField required hint="Email" [text]="emailInput" (textChange)="onEmailChange($event)"></TextField>
-        <Label [text]="emailValidationMessage" *ngIf="emailValidationMessage" class="validation-error"></Label>
+        <FlexboxLayout>
+            <Label text="Email" class="input-label"></Label>
+            <Label [text]="emailValidationMessage" *ngIf="emailValidationMessage" class="validation-error"></Label>
+        </FlexboxLayout>
+        <TextField required hint="email@example.com" autocapitalizationType="none" [text]="emailInput"
+            (textChange)="onEmailChange($event)" class="input">
+        </TextField>
 
-        <TextField required hint="Password" secure="true" [text]="passwordInput" [(ngModel)]="passwordInput"
-            (textChange)="onPasswordChange($event)"></TextField>
-        <Label [text]="passwordValidationMessage" *ngIf="passwordValidationMessage" class="validation-error"></Label>
+        <FlexboxLayout>
+            <Label text="Password" class="input-label"></Label>
+            <Label [text]="passwordValidationMessage" *ngIf="passwordValidationMessage"
+                class="validation-error"></Label>
+        </FlexboxLayout>
+        <TextField required hint="******" secure="true" [text]="passwordInput" (textChange)="onPasswordChange($event)"
+            class="input">
+        </TextField>
 
-        <TextField required secure="true" hint="Confirm Password" [(ngModel)]="confirmPasswordInput"
-            (textChange)="onConfirmPasswordChange($event)"></TextField>
-        <Label [text]="confirmPasswordValidationMessage" *ngIf="confirmPasswordValidationMessage"
-            class="validation-error"></Label>
+        <FlexboxLayout>
+            <Label text="Confirm Password" class="input-label"></Label>
+            <Label [text]="confirmPasswordValidationMessage" *ngIf="confirmPasswordValidationMessage"
+                class="validation-error"></Label>
+        </FlexboxLayout>
+        <TextField required hint="******" secure="true" [text]="confirmPasswordInput"
+            (textChange)="onConfirmPasswordChange($event)" class="input">
+        </TextField>
 
         <Button text="Signup" (tap)="onSignupTap()" class="signup-submit-btn"></Button>
 
-        <TextView editable="false" [nsRouterLink]="['/signin']" class="text-center">Already a user? Signin</TextView>
+        <TextView editable="false" [nsRouterLink]="['/signin']" class="text-center other-options">Already a user? Signin
+        </TextView>
     </StackLayout>
 </Page>

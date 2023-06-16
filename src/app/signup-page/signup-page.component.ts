@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { TextField, alert } from "@nativescript/core";
-import { SignupService } from "./signup.service";
+import { SignupService } from "../../services/signup.service";
 import { Router } from "@angular/router";
+import { validateEmail, validatePassword } from "~/utils/validations";
 
 @Component({
   selector: "ns-signup-page",
@@ -36,33 +37,21 @@ export class SignupPageComponent {
   }
 
   isValid() {
-    // Validate email
-    const emailPattern = /\S+@\S+\.\S+/;
-    if (!emailPattern.test(this.emailInput)) {
-      this.emailValidationMessage = "Invalid email format";
-      return false;
-    } else {
-      this.emailValidationMessage = "";
-    }
+    const validateEmailRes = validateEmail(this.emailInput);
+    const validatePasswordRes = validatePassword(this.passwordInput);
+    const validateConfirmPasswordRes = validatePassword(
+      this.confirmPasswordInput
+    );
 
-    // Validate password
-    if (this.passwordInput.length < 6) {
-      this.passwordValidationMessage =
-        "Password should be at least 6 characters long";
-      return false;
-    } else {
-      this.passwordValidationMessage = "";
-    }
+    this.emailValidationMessage = validateEmailRes.message;
+    this.passwordValidationMessage = validatePasswordRes.message;
+    this.confirmPasswordValidationMessage = validateConfirmPasswordRes.message;
 
-    // Validate confirm password
-    if (this.passwordInput !== this.confirmPasswordInput) {
-      this.confirmPasswordValidationMessage = "Passwords do not match";
-      return false;
-    } else {
-      this.confirmPasswordValidationMessage = "";
-    }
-
-    return true;
+    return (
+      validateEmailRes.isValid &&
+      validatePasswordRes.isValid &&
+      validateConfirmPasswordRes.isValid
+    );
   }
 
   onSignupSuccess(response) {
@@ -80,7 +69,9 @@ export class SignupPageComponent {
 
   onSignupError(error) {
     this.isLoading = false;
-    this.signupErrorMessage = error;
+    console.log("Signup error: ", { error });
+
+    this.signupErrorMessage = error.substring(error.lastIndexOf(":") + 2);
     console.error("Signup error: ", error);
   }
 

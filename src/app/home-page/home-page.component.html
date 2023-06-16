@@ -1,56 +1,51 @@
-<ActionBar title="Dashboard"> </ActionBar>
-<Page loaded="onPageLoaded" class="home-page">
-    <StackLayout class="home-page__content" padding="20">
-        <!-- <ActivityIndicator *ngIf="isLoading" [busy]="isLoading" color="cornflowerblue"> -->
+<ActionBar title="">
+    <NavigationButton icon="res://ic_arrow_back_black_24dp" (tap)="onLogoutTap()"></NavigationButton>
+</ActionBar>
+<StackLayout padding="20">
+    <FlexboxLayout class="title-bar-container">
+        <FlexboxLayout class="hero-text-container">
+            <Label text="Hello 👋, {{user?.email}}" class="greet-text"></Label>
+            <Label text="Your Contacts ({{contactList.length}})" class="my-contact-title"></Label>
+        </FlexboxLayout>
         <FlexboxLayout>
-            <FlexboxLayout class="email-title-stack">
-                <label text="Signed in as," width="70%"></label>
-                <label [text]="user?.email" width="70%" fontSize="20" fontWeight="500"></label>
-            </FlexboxLayout>
-            <FlexboxLayout height="50" width="30%">
-                <Button text="Logout" (tap)="onLogoutTap()" class="logout-btn"></Button>
-            </FlexboxLayout>
+            <Button text="Logout" (tap)="onLogoutTap()" class="logout-btn"></Button>
         </FlexboxLayout>
+    </FlexboxLayout>
 
+    <FlexboxLayout marginTop="40">
+        <Button text="Create new" (tap)="onCreateTap()" class="create-btn"></Button>
+    </FlexboxLayout>
 
-        <FlexboxLayout marginTop="30">
-            <label text="My contacts" fontSize="20" fontWeight="500" width="70%"></label>
-            <FlexboxLayout height="50" width="30%">
-                <Button text="Create" (tap)="onCreateTap()" class="create-btn"></Button>
-            </FlexboxLayout>
-        </FlexboxLayout>
-
-        <ScrollView>
-            <FlexboxLayout marginTop="20" class="contact-list-container">
-                <ActivityIndicator *ngIf="contactsFetchLoading" [busy]="contactsFetchLoading" color="cornflowerblue">
+    <ScrollView>
+        <FlexboxLayout marginTop="20" class="contact-list-container">
+            <FlexboxLayout *ngIf="isGetContactsLoading" class="loader">
+                <ActivityIndicator busy="isGetContactsLoading" color="#3461FD">
                 </ActivityIndicator>
-
-
-                <TextView *ngIf="!contactsFetchLoading && contactList?.length === 0" editable="false" text="No data "
-                    class="text-center" width="100%"></TextView>
-
-                <StackLayout *ngIf="!contactsFetchLoading && contactList?.length > 0" class="contact-list-stack">
-                    <FlexboxLayout *ngFor="let contact of contactList" class="contact-card-container">
-                        <Label [text]="contactsFetchError" *ngIf="contactsFetchError" class="validation-error"></Label>
-
-                        <FlexboxLayout class="contact-card-image-container" width="20%">
-                            <!-- <Image [src]="contact?.profilePhoto"></Image> -->
-                        </FlexboxLayout>
-
-                        <FlexboxLayout class="contact-card-info-container" width="50%">
-                            <label [text]="contact?.name" class="contact-name"></label>
-                            <label [text]="contact?.email" class="contact-email"></label>
-                            <label [text]="contact?.phone" class="contact-phone"></label>
-                        </FlexboxLayout>
-
-                        <FlexboxLayout class="contact-card-action-container" width="30%" height="100">
-                            <Button text="Edit" (tap)="onEditTap()" class="-outline edit-btn"></Button>
-                            <Button text="Delete" (tap)="onDeleteTap(contact.contactId)"
-                                class="-outline delete-btn"></Button>
-                        </FlexboxLayout>
-                    </FlexboxLayout>
-                </StackLayout>
             </FlexboxLayout>
-        </ScrollView>
-    </StackLayout>
-</Page>
+
+            <TextView *ngIf="!isGetContactsLoading && contactList?.length === 0" editable="false" text="No data"
+                class="text-center" fontSize="16px" fontWeight="500" width="100%"></TextView>
+
+            <StackLayout *ngIf="!isGetContactsLoading && contactList?.length > 0" class="contact-list-stack">
+                <FlexboxLayout *ngFor="let contact of contactList" class="contact-card-container">
+                    <Label [text]="contactsFetchError" *ngIf="contactsFetchError" class="validation-error"></Label>
+
+                    <FlexboxLayout class="contact-card-image-container" width="20%">
+                        <!-- <Image [src]="contact.imageSrc"></Image> -->
+                    </FlexboxLayout>
+
+                    <FlexboxLayout class="contact-card-info-container" width="50%">
+                        <label [text]="contact.name" class="contact-name"></label>
+                        <label [text]="contact.email" class="contact-email"></label>
+                        <label [text]="contact.phone" class="contact-phone"></label>
+                    </FlexboxLayout>
+
+                    <FlexboxLayout class="contact-card-action-container" width="30%" height="100">
+                        <Button text="Edit" (tap)="onEditTap()" class="edit-btn"></Button>
+                        <Button text="Delete" (tap)="onDeleteTap(contact.contactId)" class="delete-btn"></Button>
+                    </FlexboxLayout>
+                </FlexboxLayout>
+            </StackLayout>
+        </FlexboxLayout>
+    </ScrollView>
+</StackLayout>

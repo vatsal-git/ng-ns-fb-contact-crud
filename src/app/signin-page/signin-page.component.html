@@ -1,18 +1,28 @@
-<Page loaded="onPageLoaded" class="signin-page">
-    <StackLayout class="signin-form">
-        <TextView editable="false" text="Signin" class="h1 text-center signin-title"></TextView>
-        <Label [text]="signinErrorMessage" *ngIf="signinErrorMessage" class="validation-error"></Label>
-        <ActivityIndicator [busy]="isLoading" color="cornflowerblue"></ActivityIndicator>
+<ActionBar title=""></ActionBar>
+<StackLayout class="signin-form">
+    <TextView editable="false" text="Welcome back," class="h1 text-center signin-title"></TextView>
+    <Label [text]="signinErrorMessage" *ngIf="signinErrorMessage" class="text-center validation-error"></Label>
+    <ActivityIndicator [busy]="isLoading" color="#3461FD"></ActivityIndicator>
 
-        <TextField required hint="Email" [text]="emailInput" (textChange)="onEmailChange($event)"></TextField>
+    <FlexboxLayout>
+        <Label text="Email" class="input-label"></Label>
         <Label [text]="emailValidationMessage" *ngIf="emailValidationMessage" class="validation-error"></Label>
+    </FlexboxLayout>
+    <TextField required hint="email@example.com" autocapitalizationType="none" [text]="emailInput"
+        (textChange)="onEmailChange($event)" class="input">
+    </TextField>
 
-        <TextField required hint="Password" secure="true" [text]="passwordInput" [(ngModel)]="passwordInput"
-            (textChange)="onPasswordChange($event)"></TextField>
+    <FlexboxLayout>
+        <Label text="Password" class="input-label"></Label>
         <Label [text]="passwordValidationMessage" *ngIf="passwordValidationMessage" class="validation-error"></Label>
+    </FlexboxLayout>
+    <TextField required hint="******" secure="true" [text]="passwordInput" (textChange)="onPasswordChange($event)"
+        class="input">
+    </TextField>
 
-        <Button text="Signin" (tap)="onSigninTap()" class="signin-submit-btn"></Button>
+    <Button text="Signin" (tap)="onSigninTap()" class="signin-submit-btn"></Button>
 
-        <TextView editable="false" [nsRouterLink]="['/signup']" class="text-center">Not a user? Signup</TextView>
-    </StackLayout>
-</Page>
+    <TextView editable="false" [nsRouterLink]="['/signup']" class="text-center other-options">Not a user? Signup
+    </TextView>
+    <!-- <TextView editable="false" [nsRouterLink]="['/home']" class="text-center other-options">Go to Home</TextView> -->
+</StackLayout>

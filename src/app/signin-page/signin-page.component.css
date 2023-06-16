@@ -1,23 +1,41 @@
-.signin-page{
-    padding: 0 20;
-}
-
 .signin-title{
+    font-size: 30px;
+    font-weight: 600;
 }
 
-.signin-form{
-    margin-top: 200;
+.input-label, .validation-error{
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 18;
+    margin-top: 10;
+    color: #C0C5C8
+}
+
+.input{
+    placeholder-color: #C0C5C8;
+    background-color: #F3F5F7;
+    border-radius: 5;
+    padding: 20 25;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .validation-error{
     color: firebrick;
-    margin-left: 18;
+    margin-left: 10;
 }
 
 .signin-submit-btn{
-    border-radius: 50;
-    background-color: cornflowerblue;
-    color: white;
-    font-weight: 600;
     margin-top: 20;
+    height: 60;
+    border-radius: 10;
+    background-color: #3461FD;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.other-options{
+    font-weight: 500;
+    font-size: 14px;
 }

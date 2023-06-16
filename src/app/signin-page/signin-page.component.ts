@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { ApplicationSettings, TextField } from "@nativescript/core";
-import { SigninService } from "./signin.service";
+import { SigninService } from "../../services/signin.service";
 import { Router } from "@angular/router";
 import { setUser } from "~/store/user/user.actions";
 import { Store } from "@ngrx/store";
+import { validateEmail, validatePassword } from "./../../utils/validations";
 
 @Component({
   selector: "ns-signin-page",
@@ -12,71 +13,54 @@ import { Store } from "@ngrx/store";
   providers: [SigninService],
 })
 export class SigninPageComponent {
-  emailInput: string = "test@email.com";
-  passwordInput: string = "123456";
+  emailInput: string = "";
+  passwordInput: string = "";
   emailValidationMessage: string = "";
   passwordValidationMessage: string = "";
   isLoading: boolean = false;
   signinErrorMessage: string = "";
-  signinResponse: any;
 
   constructor(
     private signinService: SigninService,
     private router: Router,
     private store: Store
-  ) {
-    console.log("Token:", ApplicationSettings.getString("token"));
-  }
+  ) {}
 
   onEmailChange(args) {
     let textField = <TextField>args.object;
     this.emailInput = textField.text;
   }
+
   onPasswordChange(args) {
     let textField = <TextField>args.object;
     this.passwordInput = textField.text;
   }
 
   isValid() {
-    // Validate email
-    const emailPattern = /\S+@\S+\.\S+/;
-    if (!emailPattern.test(this.emailInput)) {
-      this.emailValidationMessage = "Invalid email format";
-      return false;
-    } else {
-      this.emailValidationMessage = "";
-    }
+    const validateEmailRes = validateEmail(this.emailInput);
+    const validatePasswordRes = validatePassword(this.passwordInput);
 
-    // Validate password
-    if (this.passwordInput.length < 6) {
-      this.passwordValidationMessage =
-        "Password should be at least 6 characters long";
-      return false;
-    } else {
-      this.passwordValidationMessage = "";
-    }
+    this.emailValidationMessage = validateEmailRes.message;
+    this.passwordValidationMessage = validatePasswordRes.message;
 
-    return true;
+    return validateEmailRes.isValid && validatePasswordRes.isValid;
   }
-  savedToken: string;
 
   onSigninSuccess(response) {
-    this.signinResponse = response;
-    console.log("Signin response: ", response);
-
+    console.log("Signin response: ", { response });
     this.store.dispatch(setUser({ user: response.user }));
 
     response.user.getIdToken().then((token) => {
-      ApplicationSettings.setString("token", token);
       this.isLoading = false;
+      ApplicationSettings.setString("token", token);
       this.router.navigate(["/home"]);
     });
   }
 
   onSigninError(error) {
     this.isLoading = false;
-    this.signinErrorMessage = error.message;
-    console.error("Signup error: ", error);
+    this.signinErrorMessage = error.code;
+    console.error("Signup error: ", { error });
   }
 
   onSigninTap() {
