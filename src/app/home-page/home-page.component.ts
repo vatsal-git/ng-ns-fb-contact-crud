@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
+import { RouterExtensions } from "@nativescript/angular";
 import { ApplicationSettings } from "@nativescript/core";
 import * as firebase from "@nativescript/firebase/app";
 import { Store } from "@ngrx/store";
@@ -23,6 +24,7 @@ export class HomePageComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
+    private routerExtensions: RouterExtensions,
     private contactService: ContactService
   ) {}
 
@@ -36,7 +38,7 @@ export class HomePageComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       replaceUrl: true,
     };
-    this.router.navigate(["/signin"], navigationExtras);
+    this.routerExtensions.navigate(["/signin"], { clearHistory: true });
   }
 
   getUserData() {
@@ -57,6 +59,15 @@ export class HomePageComponent implements OnInit {
 
   onCreateTap() {
     this.router.navigate(["/create-contact"]);
+  }
+
+  onEditTap(contact) {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        DataList: JSON.stringify(contact),
+      },
+    };
+    this.router.navigate(["/edit-contact"], navigationExtras);
   }
 
   async getContacts() {

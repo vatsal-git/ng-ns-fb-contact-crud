@@ -58,6 +58,18 @@ export class ContactService {
     return contactListRef.get();
   }
 
+  editContact(contact): Promise<any> {
+    const currentUserUID = this.currentUser.uid;
+
+    return firebase
+      .firestore()
+      .collection("contacts")
+      .doc(currentUserUID)
+      .collection("userContacts")
+      .doc(contact.contactId)
+      .update(contact);
+  }
+
   deleteContact(contactUid): Promise<any | null> {
     const currentUserUID = this.currentUser.uid;
 

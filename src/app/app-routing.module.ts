@@ -7,6 +7,7 @@ import { SigninPageComponent } from "./signin-page/signin-page.component";
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { AuthGuardService } from "../services/auth-guard.service";
 import { CreateContactPageComponent } from "./create-contact-page/create-contact-page.component";
+import { EditContactPageComponent } from "./edit-contact-page/edit-contact-page.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: "create-contact",
     component: CreateContactPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: "edit-contact",
+    component: EditContactPageComponent,
     canActivate: [AuthGuardService],
   },
 ];

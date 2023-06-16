@@ -1,0 +1,52 @@
+<ActionBar title="Edit Contact" class="action-bar">
+    <ActionItem (tap)="onCancel()" text="Back">
+    </ActionItem>
+</ActionBar>
+<StackLayout class="edit-contact-form">
+    <FlexboxLayout>
+        <Label text="Name" class="input-label"></Label>
+        <Label [text]="contactFormValidationMessage.name" *ngIf="!!contactFormValidationMessage.name"
+            class="validation-error"></Label>
+    </FlexboxLayout>
+    <TextField required hint="Alex Smith" [text]="contactForm.name" (textChange)="onFormChange('name', $event)"
+        class="input">
+    </TextField>
+
+    <FlexboxLayout>
+        <Label text="Email" class="input-label"></Label>
+        <Label [text]="contactFormValidationMessage.email" *ngIf="!!contactFormValidationMessage.email"
+            class="validation-error"></Label>
+    </FlexboxLayout>
+    <TextField required hint="email@example.com" autocapitalizationType="none" [text]="contactForm.email"
+        (textChange)="onFormChange('email', $event)" class="input">
+    </TextField>
+
+    <FlexboxLayout>
+        <Label text="Phone" class="input-label"></Label>
+        <Label [text]="contactFormValidationMessage.phone" *ngIf="!!contactFormValidationMessage.phone"
+            class="validation-error"></Label>
+    </FlexboxLayout>
+    <TextField required hint="9908967432" [text]="contactForm.phone" (textChange)="onFormChange('phone', $event)"
+        class="input">
+    </TextField>
+
+    <FlexboxLayout marginTop="10">
+        <Label text="Profile Photo" class="input-label"></Label>
+        <Label [text]="contactFormValidationMessage.imageSrc" *ngIf="!!contactFormValidationMessage.imageSrc"
+            class="validation-error"></Label>
+    </FlexboxLayout>
+    <FlexboxLayout>
+        <FlexboxLayout class="upload-remove-btn-container">
+            <Button text="Upload Photo" (tap)="onUploadPhotoTap()" class="-outline upload-btn"></Button>
+            <Button *ngIf="!!contactForm.imageSrc" text="Remove" (tap)="onRemovePhotoTap()"
+                class="-outline remove-btn"></Button>
+        </FlexboxLayout>
+        <FlexboxLayout *ngIf="contactForm.imageSrc" width="50%" class="photo-container">
+            <!-- <Image [src]="contactForm.imageSrc" class="photo"></Image> -->
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+    <Button text="Save" (tap)="onCreateTap()" class="edit-btn"></Button>
+    <ActivityIndicator [busy]="isLoading" color="#3461FD"></ActivityIndicator>
+    <Label [text]="createContactErrorMessage" *ngIf="createContactErrorMessage" class="validation-error"></Label>
+</StackLayout>

@@ -8,7 +8,8 @@ import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { StoreModule } from "@ngrx/store";
 import { reducers } from "../store";
-import { CreateContactPageComponent } from './create-contact-page/create-contact-page.component';
+import { CreateContactPageComponent } from "./create-contact-page/create-contact-page.component";
+import { EditContactPageComponent } from "./edit-contact-page/edit-contact-page.component";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -23,6 +24,7 @@ import { CreateContactPageComponent } from './create-contact-page/create-contact
     SignupPageComponent,
     HomePageComponent,
     CreateContactPageComponent,
+    EditContactPageComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

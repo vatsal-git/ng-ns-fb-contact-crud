@@ -1,0 +1,73 @@
+.edit-contact-form{
+    flex-direction: column;
+}
+
+.input-label, .validation-error{
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 18;
+    margin-top: 10;
+    color: #C0C5C8
+}
+
+.input{
+    placeholder-color: #C0C5C8;
+    background-color: #F3F5F7;
+    border-radius: 5;
+    padding: 20 25;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.validation-error{
+    color: firebrick;
+    margin-left: 10;
+}
+
+.upload-remove-btn-container{
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.upload-btn, .remove-btn{
+    height: 60;
+    width: 150;
+    border-radius: 10;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.upload-btn{
+    border-color: #3461FD;
+    color: #3461FD;
+}
+
+.remove-btn{
+    border-width: 2;
+    border-color: firebrick;
+    color: firebrick;
+}
+
+.photo-container {
+    width: 50;
+    height: 100;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-btn{
+    margin-top: 20;
+    height: 60;
+    border-radius: 10;
+    background-color: #3461FD;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}

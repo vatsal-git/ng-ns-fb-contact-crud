@@ -1,6 +1,4 @@
-<ActionBar title="">
-    <NavigationButton icon="res://ic_arrow_back_black_24dp" (tap)="onLogoutTap()"></NavigationButton>
-</ActionBar>
+<ActionBar title=""></ActionBar>
 <StackLayout padding="20">
     <FlexboxLayout class="title-bar-container">
         <FlexboxLayout class="hero-text-container">
@@ -41,7 +39,7 @@
                     </FlexboxLayout>
 
                     <FlexboxLayout class="contact-card-action-container" width="30%" height="100">
-                        <Button text="Edit" (tap)="onEditTap()" class="edit-btn"></Button>
+                        <Button text="Edit" (tap)="onEditTap(contact)" class="edit-btn"></Button>
                         <Button text="Delete" (tap)="onDeleteTap(contact.contactId)" class="delete-btn"></Button>
                     </FlexboxLayout>
                 </FlexboxLayout>

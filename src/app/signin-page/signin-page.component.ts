@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { setUser } from "~/store/user/user.actions";
 import { Store } from "@ngrx/store";
 import { validateEmail, validatePassword } from "./../../utils/validations";
+import { RouterExtensions } from "@nativescript/angular";
 
 @Component({
   selector: "ns-signin-page",
@@ -13,8 +14,8 @@ import { validateEmail, validatePassword } from "./../../utils/validations";
   providers: [SigninService],
 })
 export class SigninPageComponent {
-  emailInput: string = "";
-  passwordInput: string = "";
+  emailInput: string = "test@email.com";
+  passwordInput: string = "123456";
   emailValidationMessage: string = "";
   passwordValidationMessage: string = "";
   isLoading: boolean = false;
@@ -23,6 +24,7 @@ export class SigninPageComponent {
   constructor(
     private signinService: SigninService,
     private router: Router,
+    private routerExtensions: RouterExtensions,
     private store: Store
   ) {}
 
@@ -53,7 +55,7 @@ export class SigninPageComponent {
     response.user.getIdToken().then((token) => {
       this.isLoading = false;
       ApplicationSettings.setString("token", token);
-      this.router.navigate(["/home"]);
+      this.routerExtensions.navigate(["/home"], { clearHistory: true });
     });
   }
 
