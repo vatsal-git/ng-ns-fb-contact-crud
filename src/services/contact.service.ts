@@ -21,12 +21,15 @@ export class ContactService {
 
   //     // Upload the image to Firebase storage
   //     const response = await fetch(imageURI);
-  //     const blob = await response.blob();
+
+  //     console.log({ response });
+
+  //     const blob = response.url;
   //     const uploadTask = storageRef.child(imageName).put(blob);
 
   //     // Get the downloadable URL for the uploaded image
   //     const snapshot = await uploadTask;
-  //     const downloadURL = await snapshot.ref.getDownloadURL();
+  //     const downloadURL = snapshot.downloadURL;
 
   //     return downloadURL;
   //   } catch (error) {

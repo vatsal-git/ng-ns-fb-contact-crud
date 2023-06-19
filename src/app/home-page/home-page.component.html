@@ -1,9 +1,10 @@
-<ActionBar title=""></ActionBar>
+<ActionBar title="Dashboard"></ActionBar>
 <StackLayout padding="20">
     <FlexboxLayout class="title-bar-container">
         <FlexboxLayout class="hero-text-container">
             <Label text="Hello 👋, {{user?.email}}" class="greet-text"></Label>
-            <Label text="Your Contacts ({{contactList.length}})" class="my-contact-title"></Label>
+            <Label text="Your" class="my-contact-title"></Label>
+            <Label text="Contacts ({{contactList.length}})" class="my-contact-title"></Label>
         </FlexboxLayout>
         <FlexboxLayout>
             <Button text="Logout" (tap)="onLogoutTap()" class="logout-btn"></Button>

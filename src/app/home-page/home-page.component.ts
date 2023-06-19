@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { RouterExtensions } from "@nativescript/angular";
-import { ApplicationSettings } from "@nativescript/core";
-import * as firebase from "@nativescript/firebase/app";
 import { Store } from "@ngrx/store";
 import { User } from "nativescript-plugin-firebase";
 import { ContactService } from "~/services/contact.service";
-import { clearUser, setUser } from "~/store/user/user.actions";
+import { clearUser } from "~/store/user/user.actions";
+import { selectUser } from "./../../store/user/user.selectors";
 
 @Component({
   selector: "ns-home-page",
@@ -42,19 +41,9 @@ export class HomePageComponent implements OnInit {
   }
 
   getUserData() {
-    const token = ApplicationSettings.getString("token");
-    console.log("Current token:", { token });
-
-    if (token) {
-      this.user = firebase.auth().currentUser;
-
-      if (this.user) {
-        this.store.dispatch(setUser({ user: this.user }));
-      } else {
-        // this.error = "User not found" + token;
-        // this.store.dispatch(clearUser());
-      }
-    }
+    this.store.select(selectUser).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   onCreateTap() {

@@ -8,7 +8,7 @@ export class SigninService {
   constructor() {}
 
   signin(email: string, password: string): Promise<any> {
-    console.log("Signin: ", { email, password });
+    console.log("Signin form data:", { email, password });
 
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
